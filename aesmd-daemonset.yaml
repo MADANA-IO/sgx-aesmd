@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: aesmd-daemonset
+  namespace: kube-system
+  labels:
+    app: aesmd-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: aesmd-daemonset
+  template:
+    metadata:
+      labels:
+        app: aesmd-daemonset
+    spec:
+      volumes:
+      - name: aesmd-socket
+        hostPath:
+          path: /var/run/aesmd/
+          type: Directory
+      containers:
+        - name: aesmd
+          securityContext:
+            privileged: true
+          image: "registry.gitlab.com/madana-io/sgx-aesmd:latest"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - name: aesmd-socket
+            mountPath: /var/run/aesmd/
