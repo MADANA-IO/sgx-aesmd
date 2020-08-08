@@ -17,7 +17,7 @@ spec:
       volumes:
       - name: aesmd-socket
         hostPath:
-          path: /var/run/aesmd/
+          path: /var/run/
           type: Directory
       containers:
         - name: aesmd
@@ -27,4 +27,5 @@ spec:
           imagePullPolicy: IfNotPresent
           volumeMounts:
           - name: aesmd-socket
-            mountPath: /var/run/aesmd/
+            mountPath: /var/run/aesmd
+            subPath: aesmd/
