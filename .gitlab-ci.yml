@@ -15,16 +15,16 @@ build_gitlab:
     --cache-from $CI_REGISTRY_IMAGE:latest .
   - docker push $CI_REGISTRY_IMAGE:latest
 
-  build_dockerhub:
-    image: docker:latest
-    stage: docker
-    services:
-    - docker:dind
-    script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - >
-      docker build --pull
-      --tag $CI_REGISTRY_IMAGE:latest
-      --cache-from $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE:latest
+build_dockerhub:
+  image: docker:latest
+  stage: docker
+  services:
+   - docker:dind
+  script:
+  - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
+  - docker pull $CI_REGISTRY_IMAGE:latest || true
+   - >
+    docker build --pull
+    --tag $CI_REGISTRY_IMAGE:latest
+    --cache-from $CI_REGISTRY_IMAGE:latest .
+  - docker push $CI_REGISTRY_IMAGE:latest
