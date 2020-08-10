@@ -22,9 +22,9 @@ build_dockerhub:
    - docker:dind
   script:
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
-  - docker pull $CI_REGISTRY_IMAGE:latest || true
+  - docker pull $DOCKERHUB_REGISTRY_IMAGE:latest || true
    - >
     docker build --pull
-    --tag $CI_REGISTRY_IMAGE:latest
-    --cache-from $CI_REGISTRY_IMAGE:latest .
-  - docker push $CI_REGISTRY_IMAGE:latest
+    --tag $DOCKERHUB_REGISTRY_IMAGE:latest
+    --cache-from $DOCKERHUB_REGISTRY_IMAGE:latest .
+  - docker push $DOCKERHUB_REGISTRY_IMAGE:latest
