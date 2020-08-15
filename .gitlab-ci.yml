@@ -38,4 +38,4 @@ mirror_github:
   - docker pull $CI_REGISTRY_IMAGE:latest || true
   - docker login -u $GITREPOUSER -p $GITREPOTOKEN $GITREPOTOKEN
   - docker tag $CI_REGISTRY_IMAGE:latest $GITHUB_REGISTRY_IMAGE:latest 
-  - docker push $GITHUB__REGISTRY_IMAGE:latest
+  - docker push $GITHUB_REGISTRY_IMAGE:latest
