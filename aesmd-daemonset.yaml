@@ -23,8 +23,8 @@ spec:
         - name: aesmd
           securityContext:
             privileged: true
-          image: "registry.gitlab.com/madana-io/sgx-aesmd:latest"
-          imagePullPolicy: IfNotPresent
+          image: "ghcr.io/madana-io/sgx-aesmd:latest"
+          imagePullPolicy: Always
           volumeMounts:
           - name: aesmd-socket
             mountPath: /var/run/aesmd
