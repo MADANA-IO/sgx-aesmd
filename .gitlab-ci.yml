@@ -6,13 +6,18 @@ build_gitlab:
   image: quay.io/containers/buildah:latest
   stage: docker
   script:
-  - buildah login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - buildah pull $CI_REGISTRY_IMAGE:latest || true
-  - >
-    buildah bud --pull --layers
-    --tag $CI_REGISTRY_IMAGE:latest
-    --cache-from $CI_REGISTRY_IMAGE:latest .
-  - buildah push $CI_REGISTRY_IMAGE:latest
+    - buildah login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - buildah pull $CI_REGISTRY_IMAGE:latest || true
+    - >
+      buildah bud --pull --layers
+      --tag $CI_REGISTRY_IMAGE:latest
+      --cache-from $CI_REGISTRY_IMAGE:latest .
+    - buildah push $CI_REGISTRY_IMAGE:latest
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ~/.local/share/containers/
+
 
 mirror_github:
   image: quay.io/containers/buildah:latest
